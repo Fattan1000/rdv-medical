@@ -7,10 +7,16 @@ if(isset($_POST["submit"])){
     $specialite=$_POST["3"];
     $ville= $_POST["4"]  ;
     $email= $_POST["5"]  ;
-    $password= $_POST["6"]  ;
-   
+    $password= $_POST["6"];
+    $sexe= $_POST["7"] ;
+ ////  /// ///////////////////////////////////////////////////
 
-$query=mysqli_query($conn,"Insert into  medecin(nom,prenom,specialite,ville,email,password)Values('$nom','$prenom','$specialite','$ville','$email','$password');");
+ $uploadDir = 'uploads/';
+ $filename = uniqid() . '_' . $_FILES['image']['name'];
+ $filepath = $uploadDir . $filename;
+ 
+ //if (move_uploaded_file($_FILES['image']['tmp_name'], $filepath)) {
+$query=mysqli_query($conn,"Insert into  medecin(nom,prenom,sexe,specialite,ville,email,password,image)Values('$nom','$prenom','$sexe','$specialite','$ville','$email','$password',' $filepath');");
 
 if($query){
 
@@ -18,7 +24,7 @@ if($query){
 }
 else 
      echo"<script>alert('data not inserted ')</script>";
-}
+} //}
 
 
 
@@ -51,7 +57,7 @@ else
             <div class="row d-flex justify-content-center">
                 <div class="col-lg-8">
                 <h2 class="fw-bold mb-5">Sign up now</h2>
-                <form method="post">
+                <form method="post" enctype="multipart/form-data".>
                     <!-- 2 column grid layout with text inputs for the first and last names -->
                     <div class="row">
                     <div class="col-md-6 mb-4">
@@ -66,6 +72,18 @@ else
                         <label class="form-label" for="form3Example2">Last name</label>
                         </div>
                     </div>
+                    </div> </div>
+                      <!-- sexe select -->
+                      
+                      <div data-mdb-input-init class="form-outline mb-4">
+                      <label class="form-label" for="form3Example4" >Sexe : </label>
+                      <select name="7" id="c">
+                       <option value="male">male</option>
+                       <option value="female">female</option>
+                       
+                     </select>
+
+                        
                     </div>
                     <!-- specialiter input -->
                     <div data-mdb-input-init class="form-outline mb-4" >
@@ -77,7 +95,11 @@ else
                     <input type="text" id="form3Example4"name="4" class="form-control" required/>
                     <label class="form-label" for="form3Example4">Ville</label>
                     </div>
-
+               <!-- image input -->
+               <div data-mdb-input-init class="form-outline mb-4" >
+                    <input type="file"accept=".jpg,.jpeg,.png" id="form3Example4"name="image" class="form-control"required />
+                    <label class="form-label" for="form3Example4" value="">image</label>
+                    </div>
                     <!-- Email input -->
                     <div data-mdb-input-init class="form-outline mb-4">
                     <input type="email" id="form3Example3" name="5"class="form-control" required/>
