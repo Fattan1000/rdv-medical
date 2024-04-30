@@ -11,11 +11,24 @@ if(isset($_POST["submit"])){
     $sexe= $_POST["7"] ;
  ////  /// ///////////////////////////////////////////////////
 
+ if($_FILES['image']['name']==""){ 
+   if($sexe=="male") {
+    switch($num=rand(0,3)){ 
+    case 0:$filepath='photo/doctor_male.png';break;
+    default:$filepath='photo/medecin_icon_male'.$num.'.jpeg';break; }
+                    }
+    else{
+        switch(rand(0,1)){ 
+            case 0:$filepath='photo/doctor_female.png';break;
+            case 1:$filepath='photo/medecin_icon_female.jpeg';break; }
+    }
+ }else{
  $uploadDir = 'uploads/';
  $filename = uniqid() . '_' . $_FILES['image']['name'];
  $filepath = $uploadDir . $filename;
- 
- //if (move_uploaded_file($_FILES['image']['tmp_name'], $filepath)) {
+ move_uploaded_file($_FILES['image']['tmp_name'], $filepath) ;
+ }
+
 $query=mysqli_query($conn,"Insert into  medecin(nom,prenom,sexe,specialite,ville,email,password,image)Values('$nom','$prenom','$sexe','$specialite','$ville','$email','$password',' $filepath');");
 
 if($query){
@@ -24,7 +37,7 @@ if($query){
 }
 else 
      echo"<script>alert('data not inserted ')</script>";
-} //}
+}
 
 
 
@@ -76,8 +89,8 @@ else
                       <!-- sexe select -->
                       
                       <div data-mdb-input-init class="form-outline mb-4">
-                      <label class="form-label" for="form3Example4" >Sexe : </label>
-                      <select name="7" id="c">
+                      <label class="form-label" for="form3Example3" >Sexe : </label>
+                      <select name="7" id="form3Example3">
                        <option value="male">male</option>
                        <option value="female">female</option>
                        
@@ -92,24 +105,24 @@ else
                     </div>
                     <!-- ville input -->
                     <div data-mdb-input-init class="form-outline mb-4" >
-                    <input type="text" id="form3Example4"name="4" class="form-control" required/>
-                    <label class="form-label" for="form3Example4">Ville</label>
+                    <input type="text" id="form3Example5"name="4" class="form-control" required/>
+                    <label class="form-label" for="form3Example5">Ville</label>
                     </div>
                <!-- image input -->
                <div data-mdb-input-init class="form-outline mb-4" >
-                    <input type="file"accept=".jpg,.jpeg,.png" id="form3Example4"name="image" class="form-control"required />
-                    <label class="form-label" for="form3Example4" value="">image</label>
+                    <input type="file"accept=".jpg,.jpeg,.png" id="form3Example6"name="image" class="form-control" />
+                    <label class="form-label" for="form3Example6" value="">image</label>
                     </div>
                     <!-- Email input -->
                     <div data-mdb-input-init class="form-outline mb-4">
-                    <input type="email" id="form3Example3" name="5"class="form-control" required/>
-                    <label class="form-label" for="form3Example3">Email address</label>
+                    <input type="email" id="form3Example7" name="5"class="form-control" required/>
+                    <label class="form-label" for="form3Example7">Email address</label>
                     </div>
 
                     <!-- Password input -->
                     <div data-mdb-input-init class="form-outline mb-4">
-                    <input type="password" id="form3Example4"name="6" class="form-control"required />
-                    <label class="form-label" for="form3Example4">Password</label>
+                    <input type="password" id="form3Example8"name="6" class="form-control"required />
+                    <label class="form-label" for="form3Example8">Password</label>
                     </div>
                     
 

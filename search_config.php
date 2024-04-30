@@ -3,7 +3,7 @@ include("util/connection.php");
 if (isset($_POST['input']))
 {
     $input=$_POST["input"];
-    $query="SELECT nom,prenom,specialite,ville FROM medecin WHERE nom LIKE '{$input}%' OR prenom LIKE '{$input}%'";
+    $query="SELECT nom,prenom,specialite,ville,image FROM medecin WHERE nom LIKE '{$input}%' OR prenom LIKE '{$input}%'";
     $result=mysqli_query($conn,$query);
 
     if(mysqli_num_rows($result)>0){?>
@@ -13,11 +13,12 @@ if (isset($_POST['input']))
         $prenom=$row['prenom'];
         $specialite=$row['specialite'];
         $ville=$row['ville'];
+        $image=$row['image'];
        
         ?>
         <tr>
         <div class="doctor-card">
-    <img src="photo/uploads/doctor_6998099.png"alt="Doctor Image" class="doctor-image">
+    <img src="<?php echo $image?>"alt="Doctor Image" class="doctor-image">
     <div class="doctor-info">
         <h2 class="doctor-name"><?php echo"DR.$nom $prenom"?></h2><div class="plusreviews"><div class="rating">
             <span class="star">&#9733;</span>

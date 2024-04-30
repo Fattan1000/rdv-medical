@@ -35,7 +35,7 @@
 
 				url:"search_config.php",
 				method:"POST",
-				data:{it:inpunput},
+				data:{input:input},
 				success:function(data){
                   $("#search_result").html(data);
 				  $("#search_result").css("display","block");
