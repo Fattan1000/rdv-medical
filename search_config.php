@@ -3,7 +3,9 @@ include("util/connection.php");
 if (isset($_POST['input']))
 {
     $input=$_POST["input"];
-    $query="SELECT nom,prenom,specialite,ville,image FROM medecin WHERE nom LIKE '{$input}%' OR prenom LIKE '{$input}%'";
+    $specialite_select=$_POST["specialite_select"];
+    $ville_select=$_POST["ville_select"];
+    $query="SELECT nom,prenom,specialite,ville,image FROM medecin WHERE nom LIKE '{$input}%' OR prenom LIKE '{$input}%'and (specialite = '$specialite_select' OR ville ='$ville_select')";
     $result=mysqli_query($conn,$query);
 
     if(mysqli_num_rows($result)>0){?>

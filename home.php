@@ -17,25 +17,52 @@
 		    
 		</div>
 			<h1 class="display-1">Prenez un rendez-vous avec le medcin  le plus proche de vous online </h1>
-
+     <form method="post" action="result.php">
 		<div class="container">
 			<div class="search"><input id="search"type="text" placeholder="Nom,Specialite,Ville..." name="search_button">
-			<button>rechercher &#xFE0E;</button></div>
+			<select name="search-specialite" id="search-specialite" >
+            <option value="search-specialite"disabled selected hidden>choisir une spécialité</option>
+			<option value=""></option>
+            <option value="Chiropracteur">Chiropracteur</option>
+            <option value="Diabétologue">Diabétologue</option>
+            <option value="Stomatologue">Stomatologue</option>
+            <option value="Radiologue">Radiologue</option>
+            <option value="Cardiologue">Cardiologue</option>
+            <option value="Pédiatre">Pédiatre</option>
+            <option value="Chirurgien-général">Chirurgien général</option>
+            <option value="généraliste">généraliste</option> 
+            <option value="dentist">Dentiste</option>  
+            <option value="Dermatologue">Dermatologue</option>
+			
+        </select>
+        <select name="search-ville" id="search-ville" >
+            <option value=""disabled selected hidden>Choisir une ville</option>
+			<option value=""></option>
+            <option value="casablanca">Casablanca</option>
+            <option value="agadir">Agadir</option>
+            <option value="fez">Fez</option>
+            <option value="tanger">Tanger</option>
+        </select>
+			<button type="submit" name="submit">rechercher &#xFE0E;</button></div>
 		</div>
 	</div> 
+	</form>
 	<div id="search_result"></div>
 	
 <script>
 	$(document).ready(function() {
     $("#search").keyup(function(){
+		///the value of the  input
 		let input=$(this).val();
+		let specialite_select=$("#search-specialite").val();
+		let ville_select=$("#search-ville").val();
 		
 		if(input!=""){
 			$.ajax({
 
 				url:"search_config.php",
 				method:"POST",
-				data:{input:input},
+				data:{input:input , ville_select:ville_select , specialite_select:specialite_select},
 				success:function(data){
                   $("#search_result").html(data);
 				  $("#search_result").css("display","block");
