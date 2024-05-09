@@ -44,8 +44,10 @@ include("util/navbar.php");
         
 <?php
 // Check if the doctor's ID is passed as a query parameter
-if(isset($_GET['id'])) {
-    $doctorId = mysqli_real_escape_string($conn, $_GET['id']);
+if(isset($_GET['id_medecin'])) {
+  $c=$_GET['id_medecin'];
+    echo "$c";
+    $doctorId = mysqli_real_escape_string($conn, $_GET['id_medecin']);
     
     // Fetch doctor's data from the database
     $query = "SELECT * FROM medecin WHERE id = ?";

@@ -63,7 +63,7 @@ if (isset($_POST['submit']))
         <p class="doctor-city"><?php echo $ville?></p>
     </div>
 
-    <button class="button" ><a style="color:white" href="rendezvous.php">Prendre rendez vous</a></button>
+    <button class="button" ><a style="color:white" href="rendezvous.php?id_medecin=.$row['id']." class='btn btn-dark text-white border border-light'>Prendre rendez vous</a></button>
 </div>
 
         </tr>
