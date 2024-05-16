@@ -31,7 +31,7 @@ if ($password===$user['password']) {
     $_SESSION['user_role'] = $user['role'];
     $role = '';
     if ($user['role'] === 'medecin') {
-        $doctor_query = $conn->prepare("SELECT id, nom, specialite FROM medecin WHERE id = ?");
+        $doctor_query = $conn->prepare("SELECT id, nom,prenom,email,image, specialite FROM medecin WHERE id = ?");
         $doctor_query->bind_param("i", $user['id']);
         $doctor_query->execute();
         $doctor_result = $doctor_query->get_result();
@@ -39,7 +39,7 @@ if ($password===$user['password']) {
         $_SESSION['medecin_data'] = $doctor_data;
         $role = 'medecin';
     } elseif ($user['role'] === 'patient') {
-        $patient_query = $conn->prepare("SELECT id, nom FROM patient WHERE id = ?");
+        $patient_query = $conn->prepare("SELECT id,prenom, nom FROM patient WHERE id = ?");
         $patient_query->bind_param("i", $user['id']);
         $patient_query->execute();
         $patient_result = $patient_query->get_result();
