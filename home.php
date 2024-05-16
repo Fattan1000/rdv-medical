@@ -16,7 +16,7 @@
 			<button class='head_buttons'style="color:white" ><a href="login.php" style="color:white"> login/sign up</a></button>
 		    
 		</div>
-			<h1 class="display-1">Prenez un rendez-vous avec le medcin  le plus proche de vous online </h1>
+			<h1 class="display-1">Prenez un rendez-vous avec le medecin  le plus proche de vous online </h1>
      <form method="post" action="result.php">
 		<div class="container">
 			<div class="search"><input id="search"type="text" placeholder="Nom,Specialite,Ville..." name="search_button">

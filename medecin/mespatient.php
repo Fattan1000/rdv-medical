@@ -37,25 +37,31 @@ $doctor_data=$_SESSION["medecin_data"];
 <body>
     
 <div class="icon-rectangle">
-        <a href="../home.php">
-            <i class="fa-solid fa-house"></i>
-        </a>
-        <a href="dashboard-medecin.php">
-            <i class="fa-solid fa-stethoscope"></i>
-        </a>
-        <a href="mes-rdv.php">
-            <i class="fa-regular fa-calendar-check"></i>
-        </a>
-        <a href="mespatient.php">
-            <i class="fa-solid fa-bed"></i>
-        </a>
-        <a href="agenda.php">
-            <i class="fa-solid fa-calendar-days"></i>
-        </a>
-        <a href="parametres.php">
-            <i class="fa-solid fa-gear"></i>
-        </a>
-    </div>
+    <a href="../home.php" class="tooltip">
+        <i class="fa-solid fa-house"style="margin-left:6px"></i>
+        <span class="tooltiptext">Home</span>
+    </a>
+    <a href="dashboard-medecin.php" class="tooltip">
+        <i class="fa-solid fa-stethoscope" style="margin-left:5px"></i>
+        <span class="tooltiptext">Dashboard</span>
+    </a>
+    <a href="mes-rdv.php" class="tooltip">
+        <i class="fa-regular fa-calendar-check"style="margin-left:6px"></i>
+        <span class="tooltiptext">My Appointments</span>
+    </a>
+    <a href="mespatient.php" class="tooltip">
+        <i class="fa-solid fa-bed"style="margin-left:6px"></i>
+        <span class="tooltiptext">My Patients</span>
+    </a>
+    <a href="agenda.php" class="tooltip">
+        <i class="fa-solid fa-calendar-days"style="margin-left:6px"></i>
+        <span class="tooltiptext">Agenda</span>
+    </a>
+    <a href="parametres.php" class="tooltip">
+        <i class="fa-solid fa-gear"style="margin-left:6px"></i>
+        <span class="tooltiptext">Settings</span>
+    </a>
+</div>
     <div class="fixed-div">
         <img src="samir medcin.jpg" id="profileimg">
         <div class="profile-info">

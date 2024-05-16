@@ -317,124 +317,6 @@ input[type=search]:focus {
 
 
 
-.menu-btn{
-  padding:6px;
-  color: #3b3b3b;
-  background-position: 30% 50%;
-  background-repeat: no-repeat;
-  transition: 0.5s;
-  
-}
-
-.menu-text{
-  padding-left: 40%;
-  font-weight: 500;
-  font-size: 16px;
-  
-}
-
-
-.menu-active{
-  color: var(--primarycolor);
-  border-right: 7px solid var(--primarycolor);
-  background-color: var();
-}
-
-.menu-btn:hover{
-  background-color: var(--btnice);
-  color: var(--primarycolor);
-}
-
-.non-style-link-menu:link, .non-style-link-menu:visited,  .non-style-link-menu:active{
-  text-decoration: none;
-  color: #3b3b3b;
-}
-.non-style-link-menu:hover{
-  text-decoration: none;
-  color: var(--primarycolor);
-}
-
-.non-style-link-menu-active:link, .non-style-link-menu-active:visited,  .non-style-link-menu-active:active{
-  text-decoration: none;
-  color: var(--primarycolor);
-}
-
-
-
-.menu-icon-dashbord{
-  background-image: url('../photo/dashboard.svg');
-}
-
-
-.menu-icon-doctor{
-  background-image: url('../photo/doctors.svg');
-}
-.menu-icon-schedule{
-  background-image: url('../photo/schedule.svg');
-}
-.menu-icon-appoinment{
-  background-image: url('../photo/book.svg');
-}
-.menu-icon-patient{
-  background-image: url('../photo/patients.svg');
-}
-.menu-icon-settings{
-  background-image: url('../photo/settings.svg');
-}
-
-.menu-icon-session{
-  background-image: url('../photo/session.svg');
-}
-.menu-icon-home{
-  background-image: url('../photo/home.svg');
-}
-
-
-
-.menu-icon-dashbord:hover,.menu-icon-dashbord-active{
-  color: var(--primarycolor);
-
-  background-image: url('../photo/dashboard-hover.svg');
-}
-
-
-.menu-icon-doctor:hover,.menu-icon-doctor-active{
-  color: var(--primarycolor);
-  background-image: url('../photo/doctors-hover.svg');
-}
-.menu-icon-schedule:hover,.menu-icon-schedule-active{
-  color: var(--primarycolor);
-  
-  background-image: url('../photo/schedule-hover.svg');
-}
-.menu-icon-appoinment:hover,.menu-icon-appoinment-active{
-  color: var(--primarycolor);
-  
-  background-image: url('../photo/book-hover.svg');
-}
-.menu-icon-patient:hover,.menu-icon-patient-active{
-  color: var(--primarycolor);
-  
-  background-image: url('../photo/patients-hover.svg');
-}
-
-.menu-icon-settings:hover,.menu-icon-settings-active{
-  color: var(--primarycolor);
-  
-  background-image: url('../photo/settings-iceblue.svg');
-}
-
-.menu-icon-session:hover,.menu-icon-session-active{
-  color: var(--primarycolor);
-  
-  background-image: url('../photo/session-iceblue.svg');
-}
-.menu-icon-home:hover,.menu-icon-home-active{
-  color: var(--primarycolor);
-  
-  background-image: url('../photo/home-iceblue.svg');
-}
-
 
 
 
@@ -467,7 +349,7 @@ input[type=search]:focus {
 }
 
 .btn-delete{
-  background-image: url('../iphoto/delete-iceblue.svg');
+  background-image: url('../photo/delete-iceblue.svg');
 }
 .btn-delete:hover{
   background-image: url('../photo/delete-white.svg');
@@ -588,7 +470,7 @@ input[type=search]:focus {
 }
 
 .btn-book{
-  background-image: url('../img/icons/book-balck.svg');
+  background-image: url('../photo/book-balck.svg');
   background-position: 68% 50%;
   background-repeat: no-repeat;
   transition: 0.5s;
