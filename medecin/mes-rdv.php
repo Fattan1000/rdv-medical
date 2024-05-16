@@ -106,7 +106,7 @@ $doctor_data=$_SESSION["medecin_data"];
             <table border="0" width="100%" style=" border-spacing: 0;margin:0;padding:0;margin-top:25px; ">
                 <tr >
                     <td width="13%" >
-                    <a href="dashboard-medecin.php" ><button  class="login-btn btn-primary-soft btn btn-icon-back"  style="padding-top:11px;padding-bottom:11px;margin-left:20px;width:125px"><i class="fa-solid fa-arrow-left"></i><font class="tn-in-text">Back</font></button></a>
+                    <a href="dashboard-medecin.php" ><button  class="login-btn btn-primary-soft btn btn-icon-back"  style="padding-top:11px;padding-bottom:11px;margin-left:20px;width:125px"><font class="tn-in-text">Back</font></button></a>
                     </td>
                     <td>
                         <p style="font-size: 23px;padding-left:12px;font-weight: 600;">Gestionaire Des Rendez-Vous</p>
@@ -164,7 +164,7 @@ $doctor_data=$_SESSION["medecin_data"];
                         </td>
                         
                     <td width="12%">
-                    <i class="fa-regular fa-filter"></i> <input type="submit"  name="filter" value=" Filtrer" class=" btn-primary-soft btn button-icon btn-filter"  style="padding: 15px; margin :0;width:100%">
+                <button type="submit"  name="filter" value=" Filtrer" class=" btn-primary-soft btn button-icon btn-filter"  style="padding: 15px; margin :0;width:100%"> Filtrer </button>
                         </form>
                     </td>
 

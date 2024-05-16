@@ -115,10 +115,10 @@ $doctor_data=$_SESSION["medecin_data"];
                         <tr >
                             
                         <td width="13%" >
-                    <a href="parametres.php" ><button  class="login-btn btn-primary-soft btn btn-icon-back"  style="padding-top:11px;padding-bottom:11px;margin-left:20px;width:125px"><i class="fa-solid fa-arrow-left"></i><font class="tn-in-text">Back</font></button></a>
+                    <a href="parametres.php" ><button  class="login-btn btn-primary-soft btn btn-icon-back"  style="padding-top:11px;padding-bottom:11px;margin-left:20px;width:125px"><font class="tn-in-text">Back</font></button></a>
                     </td>
                     <td>
-                        <p style="font-size: 23px;padding-left:12px;font-weight: 600;">parametres</p>
+                        <p style="font-size: 23px;padding-left:12px;font-weight: 600;">paramétres</p>
                                            
                     </td>
                     
@@ -205,7 +205,7 @@ $doctor_data=$_SESSION["medecin_data"];
                             <td style="width: 25%;">
                                     <a href="?action=drop&id=<?php echo $docid.'&name='.$docnom ?>" class="non-style-link">
                                     <div  class="dashboard-items setting-tabs"  style="padding:20px;margin:auto;width:95%;display: flex;">
-                                        <div class="btn-icon-back dashboard-icons-setting" style="background-image: url('../photo/patients-hover.svg');"></div>
+                                        <div class="btn-icon-back dashboard-icons-setting" style="background-image: url('../photo/icons_supprimer.png');"></div>
                                         <div>
                                                 <div class="h1-dashboard" style="color: #ff5050;">
                                                    Supprimer compte
