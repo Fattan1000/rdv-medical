@@ -25,19 +25,29 @@ if(isset($_POST["submit"])){
  }else{
  $uploadDir = 'uploads/';
  $filename = uniqid() . '_' . $_FILES['image']['name'];
- $filepath = $uploadDir . $filename;
+ $filepath = $uploadDir.$filename;
  move_uploaded_file($_FILES['image']['tmp_name'], $filepath) ;
+ move_uploaded_file($_FILES['image']['tmp_name'], 'medecin/uploads/'.$filename) ;
  }
-
+ 
+ $row= mysqli_query($conn,"select id from medecin where  email=$email");
+ if($row->num_rows==0){ 
+ 
 $query=mysqli_query($conn,"Insert into  medecin(nom,prenom,sexe,specialite,ville,email,password,image)Values('$nom','$prenom','$sexe','$specialite','$ville','$email','$password',' $filepath');");
 
 if($query){
 
     echo"<script>alert('data inserted succssesfuly')</script>";
+  
 }
 else 
      echo"<script>alert('data not inserted ')</script>";
-}
+
+    }
+
+    else{
+        echo"<script>alert('cette email est deja utilisé')</script>";
+    }    }
 
 
 
@@ -167,7 +177,7 @@ else
         <!-- Section: Design Block -->
 
         <script src="/js/jquery.min.js"></script>
-        <script>
+        
     </body>
 </html>
 

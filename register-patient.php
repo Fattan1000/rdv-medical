@@ -9,16 +9,22 @@ if(isset($_POST["submit"])){
     $dateN= $_POST["5"]  ;
     $email= $_POST["6"]  ;
     $password= $_POST["7"]  ;
-
+   $rows= mysqli_query($conn,"select id from patient where  patient.email=$email");
+if($row->num_rows==0){ 
 
 $query=mysqli_query($conn,"Insert into  patient(nom,prenom,tele,sexe,date_naissance,email,password)Values('$nom','$prenom','$telephone','$sexe','$dateN','$email','$password');");
 if($query){
     echo"<script>alert('data inserted succssesfuly')</script>";
+  
+
 }
 else echo"<script>alert('data not inserted ')</script>";
 }
 
-
+else{
+    echo"<script>alert('cette email est deja utilisé')</script>";
+}
+}
 
 
 ?>
@@ -140,7 +146,7 @@ else echo"<script>alert('data not inserted ')</script>";
         <!-- Section: Design Block -->
 
         <script src="/js/jquery.min.js"></script>
-        <script>
+        =
     </body>
 </html>
 

@@ -39,7 +39,7 @@ if ($password===$user['password']) {
         $_SESSION['medecin_data'] = $doctor_data;
         $role = 'medecin';
     } elseif ($user['role'] === 'patient') {
-        $patient_query = $conn->prepare("SELECT id,prenom, nom FROM patient WHERE id = ?");
+        $patient_query = $conn->prepare("SELECT nom,prenom,email,id FROM patient WHERE id = ?");  
         $patient_query->bind_param("i", $user['id']);
         $patient_query->execute();
         $patient_result = $patient_query->get_result();

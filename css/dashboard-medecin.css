@@ -28,9 +28,9 @@
             color: #fff;
             width: 250px;
             padding-left: 20px;
-            margin-top: 270px;
+           
             margin-left: -250px; 
-            height: 350px;
+            height: 360px;
             background-color: darkblue;
             border-bottom-right-radius:20px; 
             overflow-y: hidden;
@@ -75,6 +75,7 @@
             padding: 10px;
             margin-bottom: 1px;
             margin-right: 20px;
+            margin-left:20px;
         }
 
         .profile-info {
@@ -92,12 +93,12 @@
         }
 .edit-button{
     margin: 4px,2px,100px,50px;
-    margin-left: 60px;
+    margin-left: 5px;
    
 }
         .edit-button,
         .logout-button,
-        .view-button {
+        .viewbutton {
             height: 35px;
             width: 100px;
             background-color: #3f5efb;
@@ -112,7 +113,7 @@
 
         .edit-button:hover,
         .logout-button:hover {
-            background-color: #2c48bf;
+            background-color:  #e6cb41;
             transform: translateY(-2px);
             box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
         }
@@ -146,21 +147,37 @@
             border-radius: 5px;
             box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
         }
-
+        #transformButton  {
+          position :fixed;
+          top: 4px;
+          background-color: #fff;
+            margin-top: 2px;
+            width:40px;
+            padding-right: 5px;
+            right: 380px;
+            justify-content: center;
+            align-items: center;
+            
+        }
+    
+        
         .calendar-container {
+           
             position: fixed;
-            top: 70px;
-            right: 20px; 
+            top: 45px;
+            right: 50px; 
             width: 250px; 
             height: 250px; 
             background-color: #fff;
             border-radius: 5px;
             box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
             overflow: hidden;
+            
         }
-
+         
         .calendar-header {
             display: flex;
+            font-size: 50px;
             justify-content: space-between;
             align-items: center;
             padding: 10px;
@@ -191,6 +208,7 @@
             gap: 2px;
             padding: 10px;
         }
+       
 
         .calendar-day {
             text-align: center;
@@ -214,16 +232,10 @@
             border-radius: 50%;
         }
 
-        .bonjour img {
-            position: fixed;
-            right: 400px;
-            top: 50px;
-            height: 300px;
-            width: 500px;
-        }
+        
 
         #bonjou {
-            color: #1c9aad;
+            color: #062a71;
             font-size: 40px;
             position: fixed;
             right: 700px;
@@ -231,7 +243,8 @@
         }
 
         #docname {
-            color: #1c9aad;
+            color: #062a71;
+
             position: fixed;
             font-size: 40px;
             right: 540px;
@@ -239,31 +252,22 @@
         }
 
 .center {
-    top: 50%;
-    right:50%;
- 
+   
     transform: translateY(-50%);
 }
         .RDVrecus {
-            height: 650px;
-            position: fixed;
-            top: 355px;
-            right: 40px;
-            width: 1000px;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: top 0.5s ease; 
+            margin: 100px auto;
+            width: 80%;
+            max-width: 1000px;
+            background-color: white;
+            border-radius: 10px;
+           
+            overflow: hidden; 
           
         }
 
 
-.tbl-content {
-    max-height: 300px; 
-    overflow-y: auto; 
-    overflow-x: hidden; 
-    margin-top: 0px;
-    border: 1px solid rgba(255, 255, 255, 0.3);
-}
+
 .bonjour,
 .calendar-container {
     transition: opacity 0.5s ease; 
@@ -273,44 +277,80 @@
     opacity: 0.1; 
 }
 
-      .recus  table {
-            background: -webkit-linear-gradient(left, #25c481, #25b7c4);
-            background: linear-gradient(to right, #25c481, #25b7c4);
-            width: 100%;
-            table-layout: fixed;
-        }
+.tbl-content {
+   
+    background-color: white;
+    max-height: 400px; 
+    overflow-y: auto; 
+    overflow-x: hidden; 
+    margin-top: 0px;
+}
 
         .tbl-header {
+            
+            width: 100%;
+            background-color: #009879;
+    color: black;
+    text-align: left;
+             font-size: 12px; 
+            }
 
-            background-color: rgba(255, 255, 255, 0.3);
-        }
 
-     
 
+.recus thead tr{
+ 
+    border-radius: 10px;
+            width: 100%;
+            background-color: #128fc8;
+    color: black;
+    text-align: left;
+             font-size: 12px;
+}
+
+            .recus  table {
+                border-collapse: collapse;
+                font-size: 0.9em;
+                font-family: sans-serif;
+                width: 1000px;
+                  top: 50%;
+                  right:55%;
+                  table-layout: fixed;
+                
+                  min-width: 400px;
+      }
+              
+              .recus tbody tr {
+                background-color: white;
+                width: 1000px;
+    max-height: 400px; 
+    overflow-y: auto; 
+    overflow-x: hidden; 
+    margin-top: 0px;
+                border-bottom: 1px solid #dddddd;
+            }
+         
         .recus th {
             
-           padding: 15px;
+            width: 1000px;
+           
+           padding:  15px;
             text-align: left;
             vertical-align: middle;
-            font-weight: 300;
+            font-weight: 300px;
             font-size: 12px;
             color: white;
-            border-bottom: solid 1px rgba(255, 255, 255, 0.1);
-        }
+            border-bottom: 1px solid #dddddd; }
 
         .recus  td {
             padding: 15px;
             text-align: left;
             vertical-align: middle;
-            font-weight: 300;
+            font-weight: 300px;
             font-size: 12px;
-            color: white;
-            border-bottom: solid 1px rgba(255, 255, 255, 0.1);
-        }
+            color: black;
+            border-bottom: 1px solid #dddddd;  }
 
-        .recus section {
-            margin: 50px;
-        }
+       
 
       
 .tbl-content::-webkit-scrollbar {

@@ -1,20 +1,22 @@
-
 <?php
 include("../util/connection.php");
-  session_start();
-$doctor_data=$_SESSION["medecin_data"];
+include('middleware.php');
 
-   $docid= $doctor_data["id"];
-   $docnom=$doctor_data["nom"];
-   $docprenom=$doctor_data["prenom"];
-   $docspecialite=$doctor_data["specialite"];
-   $docemail=$doctor_data["email"];
-   $image =$doctor_data["image"];
+$patient_data=$_SESSION["patient_data"];
 
-?><!DOCTYPE html>
+   $patid= $patient_data["id"];
+   $patnom=$patient_data["nom"];
+   $patprenom=$patient_data["prenom"];
+   $patemail=$patient_data["email"];
+  
+   
+   
+
+   ;?>
+   <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://kit.fontawesome.com/c2d3a7aff6.js" crossorigin="anonymous"></script>
@@ -24,90 +26,73 @@ $doctor_data=$_SESSION["medecin_data"];
     <link rel="stylesheet" href="../css/animations.css">  
     <link rel="stylesheet" href="../css/main.css">  
     <link rel="stylesheet" href="../css/admin.css">
-
-
-    <title>parametres</title>
+        
+    <title>Appointments</title>
     <style>
-        .dashbord-tables{
-            animation: transitionIn-Y-over 0.5s;
-        }
-        .filter-container{
-            animation: transitionIn-X  0.5s;
+        .popup{
+            animation: transitionIn-Y-bottom 0.5s;
         }
         .sub-table{
             animation: transitionIn-Y-bottom 0.5s;
         }
-    </style>
-    
-    
+</style>
 </head>
 <body>
-    
+
 <div class="icon-rectangle">
     <a href="../home.php" class="tooltip">
         <i class="fa-solid fa-house"style="margin-left:6px"></i>
         <span class="tooltiptext">Home</span>
     </a>
-    <a href="dashboard-medecin.php" class="tooltip">
-        <i class="fa-solid fa-stethoscope" style="margin-left:5px"></i>
-        <span class="tooltiptext">Dashboard</span>
-    </a>
-    <a href="mes-rdv.php" class="tooltip">
+    
+    <a href="dashboard-patient.php" class="tooltip">
         <i class="fa-regular fa-calendar-check"style="margin-left:6px"></i>
-        <span class="tooltiptext">My Appointments</span>
+        <span class="tooltiptext">Mes Rendez-Vous</span>
     </a>
-    <a href="mespatient.php" class="tooltip">
+    <a href="historiquerdv.php" class="tooltip">
         <i class="fa-solid fa-bed"style="margin-left:6px"></i>
-        <span class="tooltiptext">My Patients</span>
+        <span class="tooltiptext">Hisrorique des   Rendez-Vous</span>
     </a>
-    <a href="agenda.php" class="tooltip">
-        <i class="fa-solid fa-calendar-days"style="margin-left:6px"></i>
-        <span class="tooltiptext">Agenda</span>
-    </a>
+    
     <a href="parametres.php" class="tooltip">
         <i class="fa-solid fa-gear"style="margin-left:6px"></i>
-        <span class="tooltiptext">Settings</span>
+        <span class="tooltiptext">Paramétres</span>
     </a>
 </div>
-
     <div class="fixed-div" style="width:250px;,height:270px;">
-    <img src="<?php  echo $image?>" id="profileimg">
+        
         <div class="profile-info">
-            <h1>Dr. <?php echo "$docnom"?></h1>
-            <p>Spécialité: <?php echo "$docspecialite"?></p>
+            <h1  style="margin-top:120px;"><?php echo "$patnom $patprenom"?></h1>
+            
         </div>
-      <!--  <button class="edit-button">Modifier</button>-->
+       <!-- <button class="edit-button">Modifier</button>-->
     </div>
-    <aside style="margin-top:230px;">
+    <aside style="margin-top:250px;">
         <a href="../home.php">
             <i class="fa-solid fa-house"></i>
             Home
         </a>
-        <a href="dashboard-medecin.php">
-            <i class="fa-solid fa-stethoscope"></i>
-            Tableau de bord
-        </a>
-        <a href="mes-rdv.php">
+       
+        <a href="dashboard-patient.php">
             <i class="fa-regular fa-calendar-check"></i>
             Mes rendez-vous
         </a>
-        <a href="mespatient.php">
+        <a href="historiquerdv.php">
             <i class="fa-solid fa-bed"></i>
-            Mes patients
+            Hisrorique des Rendez-Vous
         </a>
-        <a href="agenda.php">
-            <i class="fa-solid fa-calendar-days"></i>
-            Agenda
-        </a>
+       
         <a href="parametres.php">
             <i class="fa-solid fa-gear"></i>
             Paramètres
         </a>
     </aside>
 
-    <a href="../util/logout.php"><button class="logout-button">Déconnexion</button></a>
+<a href="../util/logout.php"><button class="logout-button">Déconnexion</button></a>
 <span class="logo">logo</span>
 <span class="time" id="clock"></span>
+
+
 <div class="calendar-container" id="calendarContainer">
     <div class="calendar-header">
         <button class="calendar-prev" id="prevMonth">&lt;</button>
@@ -120,14 +105,14 @@ $doctor_data=$_SESSION["medecin_data"];
 </div>
 <button id="transformButton" class="edit-button"><img style="position:center;"src="../photo/icons8-calendar-30.png"></button>
 
-        
+
         <div class="dash-body" style="margin-top: 15px">
             <table border="0" width="100%" style=" border-spacing: 0;margin:0;padding:0;" >
                         
                         <tr >
                             
                         <td width="13%" >
-                    <a ><button  class="login-btn btn-primary-soft btn btn-icon-back"  style="padding-top:11px;padding-bottom:11px;margin-left:20px;width:125px"><font class="tn-in-text">Back</font></button></a>
+                    <a href="dashboard-medecin.php" ><button  class="login-btn btn-primary-soft btn btn-icon-back"  style="padding-top:11px;padding-bottom:11px;margin-left:20px;width:125px"><font class="tn-in-text">Back</font></button></a>
                     </td>
                     <td>
                         <p style="font-size: 23px;padding-left:12px;font-weight: 600;">paramétres</p>
@@ -164,7 +149,7 @@ $doctor_data=$_SESSION["medecin_data"];
                             </tr>
                             <tr>
                                 <td style="width: 25%;">
-                                    <a href="?action=edit&id=<?php echo $docid ?>&error=0" class="non-style-link">
+                                    <a href="?action=edit&id=<?php echo $patid ?>&error=0" class="non-style-link">
                                     <div  class="dashboard-items setting-tabs"  style="padding:20px;margin:auto;width:95%;display: flex">
                                         <div class="btn-icon-back dashboard-icons-setting" style="background-image: url('../photo/doctors-hover.svg');"></div>
                                         <div>
@@ -190,7 +175,7 @@ $doctor_data=$_SESSION["medecin_data"];
                             </tr>
                             <tr>
                             <td style="width: 25%;">
-                                    <a href="?action=view&id=<?php echo $docid ?>" class="non-style-link">
+                                    <a href="?action=view&id=<?php echo $patid ?>" class="non-style-link">
                                     <div  class="dashboard-items setting-tabs"  style="padding:20px;margin:auto;width:95%;display: flex;">
                                         <div class="btn-icon-back dashboard-icons-setting " style="background-image: url('../photo/view-iceblue.svg');"></div>
                                         <div>
@@ -215,7 +200,7 @@ $doctor_data=$_SESSION["medecin_data"];
                             </tr>
                             <tr>
                             <td style="width: 25%;">
-                                    <a href="?action=drop&id=<?php echo $docid.'&name='.$docnom ?>" class="non-style-link">
+                                    <a href="?action=drop&id=<?php echo $patid.'&name='.$patnom ?>" class="non-style-link">
                                     <div  class="dashboard-items setting-tabs"  style="padding:20px;margin:auto;width:95%;display: flex;">
                                         <div class="btn-icon-back dashboard-icons-setting" style="background-image: url('../photo/icons_supprimer.png');"></div>
                                         <div>
@@ -255,11 +240,11 @@ $doctor_data=$_SESSION["medecin_data"];
                         <h2>Are you sure?</h2>
                         <a class="close" href="parametres.php">&times;</a>
                         <div class="content">
-                            voulez vous supprimer le compte<br>('.substr($docnom,0,40).').
+                            voulez vous supprimer le compte<br>('.substr($patnom,0,40).').
                             
                         </div>
                         <div style="display: flex;justify-content: center;">
-                        <a href="delete-doctor.php?id='.$id.'" class="non-style-link"><button  class="btn-primary btn"  style="display: flex;justify-content: center;align-items: center;margin:10px;padding:10px;"<font class="tn-in-text">&nbsp;Oui&nbsp;</font></button></a>&nbsp;&nbsp;&nbsp;
+                        <a href="delete-patient.php?id='.$id.'" class="non-style-link"><button  class="btn-primary btn"  style="display: flex;justify-content: center;align-items: center;margin:10px;padding:10px;"<font class="tn-in-text">&nbsp;Oui&nbsp;</font></button></a>&nbsp;&nbsp;&nbsp;
                         <a href="parametres.php" class="non-style-link"><button  class="btn-primary btn"  style="display: flex;justify-content: center;align-items: center;margin:10px;padding:10px;"><font class="tn-in-text">&nbsp;&nbsp;Non&nbsp;&nbsp;</font></button></a>
 
                         </div>
@@ -268,19 +253,15 @@ $doctor_data=$_SESSION["medecin_data"];
             </div>
             ';
         }elseif($action=='view'){
-            $sqlmain= "select * from medecin where id='$id'";
+            $sqlmain= "select * from patient where id='$id'";
             $result=mysqli_query($conn,$sqlmain); 
             $row=$result->fetch_assoc();
             $nom=$row["nom"];
             $prenom=$row["prenom"];
             $email=$row["email"];
-            $specialite=$row["specialite"];
-            $ville=$row["ville"];
-            $presentation=$row["presentation"];
-            $expdip=$row["experience_diplome"];
-            $horaire=$row["horaires"];
-            $modpai=$row["mode_paiement"];
-            $tarif=$row["tarif"]; 
+            $tele=$row["tele"];
+            $sexe=$row["sexe"];
+           $daten=$row["date_naissance"];
              
             echo '
             <div id="popup1" class="overlay">
@@ -328,76 +309,36 @@ $doctor_data=$_SESSION["medecin_data"];
                             </tr>
                             <tr>
                                 <td class="label-td" colspan="2">
-                                    <label for="nic" class="form-label">Specialite: </label>
+                                    <label for="nic" class="form-label">Telephone: </label>
                                 </td>
                             </tr>
                             <tr>
                                 <td class="label-td" colspan="2">
-                                '.$specialite.'<br><br>
+                                '.$tele.'<br><br>
                                 </td>
                             </tr>
                             <td class="label-td" colspan="2">
-                                    <label for="nic" class="form-label">ville: </label>
+                                    <label for="nic" class="form-label">date de naissance: </label>
                                 </td>
                             </tr>
                             <tr>
                                 <td class="label-td" colspan="2">
-                                '.$ville.'<br><br>
+                                '.$daten.'<br><br>
                                 </td>
                             </tr>
                             
                             <tr>
                                 <td class="label-td" colspan="2">
-                                    <label for="Tele" class="form-label">Presentasion: </label>
+                                    <label for="Tele" class="form-label">sexe: </label>
                                 </td>
                             </tr>
                             <tr>
                                 <td class="label-td" colspan="2">
-                                '.$presentation.'<br><br>
+                                '.$sexe.'<br><br>
                                 </td>
                             </tr>
-                            <tr>
-                                <td class="label-td" colspan="2">
-                                    <label for="spec" class="form-label">experience et diplome </label>
-                                    
-                                </td>
-                            </tr>
-                            <tr>
-                            <td class="label-td" colspan="2">
-                            '.$expdip.'<br><br>
-                            </td>
-                            </tr>
-                            <tr>
-                            <td class="label-td" colspan="2">
-                                <label for="Tele" class="form-label">Mode paiement: </label>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="label-td" colspan="2">
-                            '.$modpai.'<br><br>
-                            </td>
-                        </tr>
-                        <tr>
-                        <td class="label-td" colspan="2">
-                            <label for="Tele" class="form-label">Tarif: </label>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="label-td" colspan="2">
-                        '.$tarif.'<br><br>
-                        </td>
-                    </tr>
-                            <tr>
-                                <td class="label-td" colspan="2">
-                                    <label for="spec" class="form-label">Horaires: </label>
-                                    
-                                </td>
-                            </tr>
-                            <tr>
-                            <td class="label-td" colspan="2">
-                            '.$horaire.'<br><br>
-                            </td>
-                            </tr>
+                            
+                            
                             <tr>
                                 <td colspan="2">
                                     <a href="parametres.php"><input type="button" value="OK" class="login-btn btn-primary-soft btn" ></a>
@@ -416,22 +357,18 @@ $doctor_data=$_SESSION["medecin_data"];
             </div>
             ';  
         }elseif($action=='edit'){
-            $sqlmain= "select * from medecin where id='$id'";
+            $sqlmain= "select * from patient where id='$id'";
             $result=mysqli_query($conn,$sqlmain); 
             $row=$result->fetch_assoc();
             $nom=$row["nom"];
             $prenom=$row["prenom"];
             $email=$row["email"];
-            $specialite=$row["specialite"];
-            $ville=$row["ville"];
-            $presentation=$row["presentation"];
-            $expdip=$row["experience_diplome"];
-            $horaire=$row["horaires"];
-            $modpai=$row["mode_paiement"];
-            $tarif=$row["tarif"]; 
+            $tele=$row["tele"];
+            $sexe=$row["sexe"];
+           $daten=$row["date_naissance"];
     
             $nic=0;
-            $tele=0;
+          
 
             $error_1=$_GET["error"];
                 $errorlist= array(
@@ -461,7 +398,7 @@ $doctor_data=$_SESSION["medecin_data"];
                                    
                                     <tr>
                                         <td class="label-td" colspan="2">
-                                            <form action="edit-doc.php" method="POST" class="add-new-form">
+                                            <form action="edit-patient.php" method="POST" class="add-new-form">
                                             
                                             <input type="hidden" value="'.$id.'" name="id00">
                                         </td>
@@ -491,85 +428,43 @@ $doctor_data=$_SESSION["medecin_data"];
                                     <tr>
                                         
                                         <td class="label-td" colspan="2">
-                                            <label for="name" class="form-label">specialite: </label>
+                                            <label for="name" class="form-label">Telephone: </label>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td class="label-td" colspan="2">
-                                            <input type="text" name="specialite" class="input-text" placeholder="specialite" value="'.$specialite.'" required><br>
+                                            <input type="text" name="telephone" class="input-text" placeholder="Telephone" value="'.$tele.'" required><br>
                                         </td>
                                         
                                     </tr>
                                     <tr>
                                     <td class="label-td" colspan="2">
-                                            <label for="name" class="form-label">ville: </label>
+                                            <label for="name" class="form-label">sexe: </label>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td class="label-td" colspan="2">
-                                            <input type="text" name="ville" class="input-text" placeholder="ville" value="'.$ville.'" required><br>
+                                            <select name="sexe" class="input-text" placeholder="sexe" value="'.$sexe.'" required>
+                                            <option value="male">male</option>
+                                            <option value="female">female</option>
+                                            </select><br>
                                         </td>
                                         
                                     </tr>
                                     <tr>
                                         <td class="label-td" colspan="2">
-                                            <label for="Tele" class="form-label">Description: </label>
+                                            <label for="Tele" class="form-label">Date de Naissance: </label>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td class="label-td" colspan="2">
-                                            <textarea type="text" name="desc" class="input-text" placeholder="écriver une bref description sur vous et votre cabinet"  required></textarea><br>
+                                            <input type="date" name="daten" value="'.$daten.'" class="input-text" placeholder="votre date de naissance"  required><br>
                                         </td>
                                     </tr>
-                                    <tr>
-                                    <td class="label-td" colspan="2">
-                                    <label for="name" class="form-label">tarif: </label>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="label-td" colspan="2">
-                                    <input type="text" name="tarif" class="input-text" placeholder="tarif" value="'.$tarif.'" ><br>
-                                </td>
-                                
-                            </tr>
-                            <tr>
-                                        <td class="label-td" colspan="2">
-                                            <label for="Tele" class="form-label">experiences et Diplômes: </label>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="label-td" colspan="2">
-                                            <textarea type="text" name="expdip" class="input-text" placeholder="écriver un bref paragraphe où vous décrivez votre parcours académique et professionnel"  required></textarea><br>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                    <td class="label-td" colspan="2">
-                                        <label for="spec" class="form-label">Mode de paiement: </label>
-                                        
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="label-td" colspan="2">
-                                     <input type="checkbox" name="modpai[]" value="especes"  >par espèces<br>
-                                     <input type="checkbox" name="modpai[]" value="cheque"  >par cheque <br>
-                                     <input type="checkbox" name="modpai[]" value="carte"   >par carte  <br>
-                           
+                             
                                             
       <br>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                    <td class="label-td" colspan="2">
-                                        <label for="Tele" class="form-label">Horaires: </label>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="label-td" colspan="2">
-                                        <textarea  name="horaire" class="input-text" placeholder="essaiez d\'écrire votre horaires sous cette form:
-    Lundi :09h00 - 13h00, 14h00 - 19h00" value="'.$horaire.'" required></textarea><br>
-                                    </td>
-                                </tr>
-                                    <tr>
+                                     <tr>
                                         <td class="label-td" colspan="2">
                                             <label for="password" class="form-label">Password: </label>
                                         </td>

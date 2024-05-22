@@ -1,7 +1,9 @@
 
 		.main_container{
-			background-color:#7be495;
+			
       margin-bottom:20px;
+      background-image: url("../Geometric Background .jpg");
+      background-repeat: no-repeat;
 		}
 		.header{
 			display:absolute ;

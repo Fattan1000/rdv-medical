@@ -2,7 +2,13 @@
 
 
     $(document).ready(function() {
+        //backbutton
+        $('.btn-icon-back').click(function(){
+            window.history.back();
+        });
+        
         // Clock code
+
         var $clockElement = $('#clock');
 
         function updateClock() {
@@ -78,8 +84,16 @@
             }
             renderCalendar(currentMonth, currentYear);
         });
+       
+           
+            $('#calendarContainer').hide();;
+        
 
-        // Toggle visibility function
+        $('#transformButton').click(function() {
+           
+            $('#calendarContainer').toggle();;
+        });
+    
         function toggleVisibility() {
             $('.fixed-div, aside').toggleClass('show');
         }
@@ -88,23 +102,20 @@
             $('.icon-rectangle, .logo').toggleClass('show alternate-position');
         }
 
-        $('.icon-rectangle').on('click', function() {
-            toggleIconRectangleVisibility();
-            toggleVisibility();
+        $('.icon-rectangle').on('click', function(event) {
+            // Ensure the target is exactly the .icon-rectangle and not a child element
+            if (event.target === this) {
+                toggleIconRectangleVisibility();
+                toggleVisibility();
+            }
+            event.stopPropagation(); // Prevent click event from propagating to the document
         });
 
-        $('.logo').on('click', function() {
-            toggleIconRectangleVisibility();
-            toggleVisibility();
-        });
-
-        $('.RDVrecus').on('click', function(event) {
-            // Check if the clicked element is not a view-button or a child of it
-            if (!$(event.target).hasClass('view-button') && !$(event.target).closest('.view-button').length) {
-                // Toggle 'center' class on RDVrecus div
-                $(this).toggleClass('center');
-                // Toggle 'transparent' class on bonjour image and calendar
-                $('.bonjour, .calendar-container').toggleClass('transparent');
+        $(document).on('click', function(event) {
+            if (!$(event.target).closest('').length) {
+                $('.fixed-div, aside').removeClass('show');
+                $('.icon-rectangle, .logo').removeClass('show alternate-position');
             }
         });
+      
     });

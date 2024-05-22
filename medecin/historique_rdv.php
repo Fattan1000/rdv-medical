@@ -9,7 +9,11 @@ $doctor_data=$_SESSION["medecin_data"];
    $docspecialite=$doctor_data["specialite"];
    $docemail=$doctor_data["email"];
    $image =$doctor_data["image"];
-
+   if (isset($_GET["idp"]) && isset($_GET["nom"]) && isset($_GET["prenom"])){
+    $patientid=$_GET["idp"];
+    $patientnom=$_GET["nom"];
+    $patientprenom=$_GET["prenom"]; 
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -118,10 +122,10 @@ $doctor_data=$_SESSION["medecin_data"];
             <table border="0" width="100%" style=" border-spacing: 0;margin:0;padding:0;margin-top:25px; ">
                 <tr >
                     <td width="13%" >
-                    <a  ><button  class="login-btn btn-primary-soft btn btn-icon-back"  style="padding-top:11px;padding-bottom:11px;margin-left:20px;width:125px"><font class="tn-in-text">Back</font></button></a>
+                    <a ><button  class="login-btn btn-primary-soft btn btn-icon-back"  style="padding-top:11px;padding-bottom:11px;margin-left:20px;width:125px"><font class="tn-in-text">Back</font></button></a>
                     </td>
                     <td>
-                        <p style="font-size: 23px;padding-left:12px;font-weight: 600;">Gestionaire Des Rendez-Vous</p>
+                        <p style="font-size: 23px;padding-left:12px;font-weight: 600;">Historique Medicale de <?php echo"$patientnom $patientprenom"?></p>
                                            
                     </td>
                     <td width="15%">
@@ -129,7 +133,9 @@ $doctor_data=$_SESSION["medecin_data"];
                         <p class="heading-sub12" style="padding: 0;margin: 0;">
                             <?php 
 
-                       $list110 =mysqli_query($conn,"select * from rendez_vouz where  medecin_id=$docid");
+                       $list110 =mysqli_query($conn,"SELECT patient_id FROM rendez_vouz 
+                       WHERE  medecin_id = $docid and rendez_vouz.status='terminer'and patient_id=$patientid
+                       ");
 
                         ?>
                         </p>
@@ -145,7 +151,7 @@ $doctor_data=$_SESSION["medecin_data"];
                 <tr>
                     <td colspan="4" style="padding-top:10px;width: 100%;" >
                     
-                        <p class="heading-main12" style="margin-left: 45px;font-size:18px;color:rgb(49, 49, 49)">Mes Rendez-Vous (<?php echo $list110->num_rows; ?>)</p>
+                        <p class="heading-main12" style="margin-left: 45px;font-size:18px;color:rgb(49, 49, 49)">Nombres de consultaions prise  (<?php echo $list110->num_rows; ?>)</p>
                     </td>
                     
                 </tr>
@@ -185,7 +191,7 @@ $doctor_data=$_SESSION["medecin_data"];
    
   
 
-               $sqlmain = "SELECT rendez_vouz.id,rendez_vouz.status,date_rdv,patient_id, patient.nom,heure_debut_rdv, patient.prenom, patient.tele FROM patient INNER JOIN rendez_vouz ON rendez_vouz.patient_id = patient.id WHERE rendez_vouz.status='confirmer'and rendez_vouz.medecin_id = $docid";
+               $sqlmain = "SELECT rendez_vouz.id,rendez_vouz.status,date_rdv,patient_id, patient.nom,heure_debut_rdv, patient.prenom, patient.tele FROM patient INNER JOIN rendez_vouz ON rendez_vouz.patient_id = patient.id WHERE rendez_vouz.medecin_id = $docid and rendez_vouz.status='terminer'and patient_id=$patientid";
 
                     if($_POST){
                        
@@ -230,13 +236,13 @@ $doctor_data=$_SESSION["medecin_data"];
                                 
                                 <th class="table-headin" >
                                     
-                                   Date Rendez_vous
+                                   Date consultation
                                     
                                 </th>
                                 
                                 <th class="table-headin">
                                     
-                                    Temps Debut Rendez_vous
+                                    Temps Debut de consultation
                                     
                                 </th>
                                 
@@ -261,8 +267,8 @@ $doctor_data=$_SESSION["medecin_data"];
                                     <img src="../photo/notfound.jpg" width="35%">
                                     
                                     <br>
-                                    <p class="heading-main12" style="margin-left: 45px;font-size:20px;color:rgb(49, 49, 49)">We  couldnt find anything related to your keywords !</p>
-                                    <a class="non-style-link" href="mes-rdv.php"><button  class="login-btn btn-primary-soft btn"  style="display: flex;justify-content: center;align-items: center;margin-left:20px;">&nbsp; Afficher tous les Rendez-Vous &nbsp;</font></button>
+                                    <p class="heading-main12" style="margin-left: 45px;font-size:20px;color:rgb(49, 49, 49)">Ce patient n\'a pas encore terminer une seance !</p>
+                                    <a class="non-style-link" href="mespatient.php"><button  class="login-btn btn-primary-soft btn"  style="display: flex;justify-content: center;align-items: center;margin-left:20px;">&nbsp; Retourner a mes Patients &nbsp;</font></button>
                                     </a>
                                     </center>
                                     <br><br><br><br>
@@ -311,8 +317,7 @@ $doctor_data=$_SESSION["medecin_data"];
                                         
                                         <a href="?action=view&id='.$idRDV.'&idpatient='.$idpatient.'" class="non-style-link"><button  class="btn-primary-soft btn button-icon btn-view"  style="padding-left: 40px;padding-top: 12px;padding-bottom: 12px;margin-top: 10px;"><font class="tn-in-text">Voir</font></button></a>
                                        &nbsp;&nbsp;&nbsp;
-                                       <a href="?action=drop&id='.$idRDV.'&name='.$patientnom.'" class="non-style-link"><button  class="btn-primary-soft btn button-icon btn-delete"  style="padding-left: 40px;padding-top: 12px;padding-bottom: 12px;margin-top: 10px;"><font class="tn-in-text">Annuler</font></button></a>
-                                       &nbsp;&nbsp;&nbsp;</div>
+                                       
                                         </td>
                                     </tr>';
                                     
@@ -336,47 +341,13 @@ $doctor_data=$_SESSION["medecin_data"];
     </div>
     <?php
     
-    if($_GET){
-        $id=$_GET["id"];
-        $idpatient=$_GET["idpatient"];
-        $action=$_GET["action"];
+    if (isset($_GET["id"]) && isset($_GET["idpatient"]) && isset($_GET["action"])){
+        $id=$_GET["id"];echo $id;
+        $idpatient=$_GET['idpatient'];
+        $action=$_GET['action'];
       
-        if($action=='drop'){
-            $nameget=$_GET["name"];
-            $session=$_GET["session"];
-            $apponum=$_GET["apponum"];
-            echo '
-            <div id="popup1" class="overlay">
-                    <div class="popup">
-                    <center>
-                        <h2>ATTENTION!etes vous sur?</h2>
-                        <a class="close" href="mes-rdv.php">&times;</a>
-                        <div class="content">
-                           etes vous sure de supprimer ce rendez-vous<br><br>
-                            Patient nom: &nbsp;<b>'.substr($nameget,0,40).'</b><br>
-                           nombre rendez-vous &nbsp; : <b>'.substr($apponum,0,40).'</b><br><br>
-                            
-                        </div>
-                        <form method="post" >
-                        <div style="display: flex;justify-content: center;">
-                        
-                        <a  class="non-style-link" href="mes-rdv.php"><button name="annuler" type="submit" class="btn-primary btn"  style="display: flex;justify-content: center;align-items: center;margin:10px;padding:10px;"<font class="tn-in-text">&nbsp;OUI&nbsp;</font></button></a>&nbsp;&nbsp;&nbsp;
-                         <a href="mes-rdv.php" class="non-style-link"><button  class="btn-primary btn"  style="display: flex;justify-content: center;align-items: center;margin:10px;padding:10px;"><font class="tn-in-text">&nbsp;&nbsp;NON&nbsp;&nbsp;</font></button></a>
-                        </form>
-                        </div>
-                    </center>
-            </div>
-            </div>
-            '; if(isset($_POST["annuler"])){
-                mysqli_query($conn,"UPDATE rendez_vouz
-                SET status = 'annuler'
-                WHERE id=$id;");  
-    echo"<script>alert('ce rendez vous a été annuler')</script>";
-
- }     
-        }elseif($action=='view'){
-            //$sqlmain= "select * from medecin where id='$id'";
-            $sqlmain = "SELECT rendez_vouz.id,date_rdv, patient.id patientid, patient.nom, patient.email, rendez_vouz.description,rendez_vouz.status,rendez_vouz.heure_debut_rdv, patient.prenom, patient.tele FROM patient INNER JOIN rendez_vouz ON rendez_vouz.patient_id = patient.id WHERE rendez_vouz.medecin_id = $docid";
+        if($action=='view'){
+            $sqlmain = "SELECT rendez_vouz.id,date_rdv, patient.nom, patient.email, rendez_vouz.description,rendez_vouz.status,rendez_vouz.heure_debut_rdv, patient.prenom, patient.tele FROM patient INNER JOIN rendez_vouz ON rendez_vouz.patient_id = patient.id WHERE rendez_vouz.medecin_id = $docid";
            
             $result=mysqli_query($conn,$sqlmain); 
             $row=$result->fetch_assoc();
@@ -386,33 +357,32 @@ $doctor_data=$_SESSION["medecin_data"];
                 $patienttele=$row["tele"];
                 $dateRDV=$row["date_rdv"];
                 $tempRDV=$row["heure_debut_rdv"];
-                $patientid=$row["patientid"];
                
                 $RDVstatus=$row["status"];
                 $RDVdescription=$row["description"];
                   $patientemail=$row["email"];
-            echo " 
-            <div id='popup1'class='overlay'>
-                    <div class='popup'>
+            echo '
+            <div id="popup1" class="overlay">
+                    <div class="popup">
                     <center>
                         <h2></h2>
-                        <a class='close' href='mes-rdv.php'>&times;</a>
-                        <div class='content'>
+                        <a class="close" href="historique_rdv.php">&times;</a>
+                        <div class="content">
                           
                             
                         </div>
-                        <div style='display: flex;justify-content: center;'>
-                        <div class='abc'>
-                        <table width='80%' class='sub-table scrolldown add-doc-form-container' border='0'>
+                        <div style="display: flex;justify-content: center;">
+                        <div class="abc">
+                        <table width="80%" class="sub-table scrolldown add-doc-form-container" border="0">
                         
                             <tr>
                                 <td>
-                                    <p style='padding: 0;margin: 0;text-align: left;font-size: 25px;font-weight: 500;'>rendez-vous detail</p><br><br>
+                                    <p style="padding: 0;margin: 0;text-align: left;font-size: 25px;font-weight: 500;">rendez-vous detail</p><br><br>
                                 </td>
-                              <td>  <div style='display:flex;justify-content: center;'>
-                              <a href='fichemedicale.php?id={$row['id']}&nom={$row['nom']}&prenom={$row['prenom']}' class='non-style-link'>
-                              <button class='btn-primary-soft btn button-icon btn-view' style='padding-left: 40px;padding-top: 12px;padding-bottom: 12px;margin-top: 10px;width:190px;height:50px;'>
-                                        <font class='tn-in-text'>Fiche Medicale</font>
+                              <td>  <div style="display:flex;justify-content: center;">
+                                <a href="fichemedicale.php?id='.$idpatient.'" class="non-style-link">
+                                    <button class="btn-primary-soft btn button-icon btn-view" style="padding-left: 40px;padding-top: 12px;padding-bottom: 12px;margin-top: 10px;width:190px;height:50px;">
+                                        <font class="tn-in-text">Fiche Medicale</font>
                                     </button>
                                 </a>
                             </div></td>
@@ -420,73 +390,73 @@ $doctor_data=$_SESSION["medecin_data"];
                             
                             <tr>
                                 
-                                <td class='label-td' colspan='2'>
-                                    <label for='name' class='form-label'>Nom et Prenom: </label>
+                                <td class="label-td" colspan="2">
+                                    <label for="name" class="form-label">Nom et Prenom: </label>
                                 </td>
                             </tr>
                             <tr>
-                                <td class='label-td' colspan='2'>
-                                    $patientnom&nbsp;$patientprenom<br><br>
+                                <td class="label-td" colspan="2">
+                                    '.$patientnom.'&nbsp;'.$patientprenom.'<br><br>
                                 </td>
                                 
                             </tr>
                             
                             <tr>
-                                <td class='label-td' colspan='2'>
-                                    <label for='spec' class='form-label'> date et heure Rendez-Vous: </label>
+                                <td class="label-td" colspan="2">
+                                    <label for="spec" class="form-label"> date et heure Rendez-Vous: </label>
                                     
                                 </td>
                             </tr>
                             <tr>
-                            <td class='label-td' colspan='2'>
-                            à&nbsp;$tempRDV&nbsp;le $dateRDV<br><br>
+                            <td class="label-td" colspan="2">
+                            à&nbsp;'.$tempRDV.'&nbsp;le '.$dateRDV.'<br><br>
                             </td>
                             </tr>
                             <tr>
-                                <td class='label-td' colspan='2'>
-                                    <label for='ic' class='form-label'>Description: </label>
+                                <td class="label-td" colspan="2">
+                                    <label for="nic" class="form-label">Description: </label>
                                 </td>
                             </tr>
                             <tr>
-                                <td class='label-td' colspan='2'>
-                                $RDVdescription<br><br>
+                                <td class="label-td" colspan="2">
+                                '.$RDVdescription.'<br><br>
                                 </td>
                             </tr>
                             <tr>
-                                <td class='label-td' colspan='2'>
-                                    <label for='Tele' class='form-label'>Telephone: </label>
+                                <td class="label-td" colspan="2">
+                                    <label for="Tele" class="form-label">Telephone: </label>
                                 </td>
                             </tr>
                             <tr>
-                                <td class='label-td' colspan='2'>
-                                $patienttele<br><br>
+                                <td class="label-td" colspan="2">
+                                '.$patienttele.'<br><br>
                                 </td>
                             </tr>
                             <tr>
-                                <td class='label-td'colspan='2'>
-                                    <label for='spec' class='form-label'>Email: </label>
+                                <td class="label-td" colspan="2">
+                                    <label for="spec" class="form-label">Email: </label>
                                     
                                 </td>
                             </tr>
                             <tr>
-                            <td class='label-td' colspan='2'>
-                            $patientemail<br><br>
+                            <td class="label-td" colspan="2">
+                            '.$patientemail.'<br><br>
                             </td>
                             </tr>
                             <tr>
-                                <td class='label-td' colspan='2'>
-                                    <label for='spec' class='form-label'>Status: </label>
+                                <td class="label-td" colspan="2">
+                                    <label for="spec" class="form-label">Status: </label>
                                     
                                 </td>
                             </tr>
                             <tr>
-                            <td class='label-td' colspan='2'>
-                            $RDVstatus<br><br>
+                            <td class="label-td" colspan="2">
+                            '.$RDVstatus.'<br><br>
                             </td>
                             </tr>
                             <tr>
-                                <td colspan='2'>
-                                    <a href='mes-rdv.php'><input type='button' value='OK' class='login-btn btn-primary-soft btn' ></a>
+                                <td colspan="2">
+                                    <a href="historique_rdv.php"><input type="button" value="OK" class="login-btn btn-primary-soft btn" ></a>
                                 
                                
                                 </td>
@@ -500,7 +470,7 @@ $doctor_data=$_SESSION["medecin_data"];
                     <br><br>
             </div>
             </div>
-            ";  
+            ';  
     }
 }
 
