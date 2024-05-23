@@ -30,26 +30,44 @@ if(isset($_POST["submit"])){
  move_uploaded_file($_FILES['image']['tmp_name'], 'medecin/uploads/'.$filename) ;
  }
  
- $row= mysqli_query($conn,"select id from medecin where  email=$email");
- if($row->num_rows==0){ 
- 
-$query=mysqli_query($conn,"Insert into  medecin(nom,prenom,sexe,specialite,ville,email,password,image)Values('$nom','$prenom','$sexe','$specialite','$ville','$email','$password',' $filepath');");
+ class EmailAlreadyUsedException extends Exception {}
 
-if($query){
+ try {
+     // Préparation de la requête pour vérifier si l'email existe déjà
+     $stmt = $conn->prepare("SELECT id FROM medecin WHERE email = ?");
+     $stmt->bind_param("s", $email);
+     $stmt->execute();
+     $stmt->store_result();
 
-    echo"<script>alert('data inserted succssesfuly')</script>";
-  
-}
-else 
-     echo"<script>alert('data not inserted ')</script>";
+     // Vérification du nombre de résultats
+     if ($stmt->num_rows > 0) {
+         throw new EmailAlreadyUsedException('Cette email est déjà utilisé');
+     } else {
+         // Préparation de la requête d'insertion
+         $stmt_insert = $conn->prepare("INSERT INTO medecin (nom, prenom, sexe, specialite, ville, email, password, image) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+         $stmt_insert->bind_param("ssssssss", $nom, $prenom, $sexe, $specialite, $ville, $email, $password, $filepath);
 
-    }
+         // Exécution de la requête d'insertion
+         if ($stmt_insert->execute()) {
+             header('Location: signup_success.php');
+             exit();
+         } else {
+             header('Location: signup_failure.php?error=Data not inserted');
+             exit();
+         }
+     }
 
-    else{
-        echo"<script>alert('cette email est deja utilisé')</script>";
-    }    }
-
-
+     // Fermeture des statements
+     $stmt->close();
+     $stmt_insert->close();
+ } catch (EmailAlreadyUsedException $e) {
+     header('Location: signup_failure.php?error=' . urlencode($e->getMessage()));
+     exit();
+ } catch (Exception $e) {
+     // Gestion des autres exceptions
+     header('Location: signup_failure.php?error=' . urlencode($e->getMessage()));
+     exit();
+ }}
 
 
 ?>

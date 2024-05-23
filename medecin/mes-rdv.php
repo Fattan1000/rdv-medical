@@ -376,7 +376,7 @@ $doctor_data=$_SESSION["medecin_data"];
  }     
         }elseif($action=='view'){
             //$sqlmain= "select * from medecin where id='$id'";
-            $sqlmain = "SELECT rendez_vouz.id,date_rdv, patient.id patientid, patient.nom, patient.email, rendez_vouz.description,rendez_vouz.status,rendez_vouz.heure_debut_rdv, patient.prenom, patient.tele FROM patient INNER JOIN rendez_vouz ON rendez_vouz.patient_id = patient.id WHERE rendez_vouz.medecin_id = $docid";
+            $sqlmain = "SELECT rendez_vouz.id,date_rdv,patient.date_naissance, patient.sexe, patient.nom, patient.email, rendez_vouz.description,rendez_vouz.status,rendez_vouz.heure_debut_rdv, patient.prenom, patient.tele FROM patient INNER JOIN rendez_vouz ON rendez_vouz.patient_id = patient.id WHERE rendez_vouz.medecin_id = $docid";
            
             $result=mysqli_query($conn,$sqlmain); 
             $row=$result->fetch_assoc();
@@ -387,6 +387,7 @@ $doctor_data=$_SESSION["medecin_data"];
                 $dateRDV=$row["date_rdv"];
                 $tempRDV=$row["heure_debut_rdv"];
                 $patientid=$row["patientid"];
+                $patientsexe=$row["sexe"];
                
                 $RDVstatus=$row["status"];
                 $RDVdescription=$row["description"];

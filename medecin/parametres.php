@@ -566,7 +566,8 @@ $doctor_data=$_SESSION["medecin_data"];
                                 <tr>
                                     <td class="label-td" colspan="2">
                                         <textarea  name="horaire" class="input-text" placeholder="essaiez d\'écrire votre horaires sous cette form:
-    Lundi :09h00 - 13h00, 14h00 - 19h00" value="'.$horaire.'" required></textarea><br>
+    Lundi :09h00-13h00, 14h00-19h00
+     mardi :09h00-13h00, 14h00-19h00" value="'.htmlspecialchars(nl2br($horaire)).'" required></textarea><br>
                                     </td>
                                 </tr>
                                     <tr>

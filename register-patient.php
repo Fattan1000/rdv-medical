@@ -9,22 +9,43 @@ if(isset($_POST["submit"])){
     $dateN= $_POST["5"]  ;
     $email= $_POST["6"]  ;
     $password= $_POST["7"]  ;
-   $rows= mysqli_query($conn,"select id from patient where  patient.email=$email");
-if($row->num_rows==0){ 
+    class EmailAlreadyUsedException extends Exception {}
 
-$query=mysqli_query($conn,"Insert into  patient(nom,prenom,tele,sexe,date_naissance,email,password)Values('$nom','$prenom','$telephone','$sexe','$dateN','$email','$password');");
-if($query){
-    echo"<script>alert('data inserted succssesfuly')</script>";
-  
+    try {
+        // Préparation de la requête pour vérifier si l'email existe déjà
+        $stmt = $conn->prepare("SELECT id FROM patient WHERE email = ?");
+        $stmt->bind_param("s", $email);
+        $stmt->execute();
+        $stmt->store_result();
+   
+        // Vérification du nombre de résultats
+        if ($stmt->num_rows > 0) {
+            throw new EmailAlreadyUsedException('Cette email est déjà utilisé');
+         } else {
+            $stmt_insert = $conn->prepare("INSERT INTO patient(nom,prenom,tele,sexe,date_naissance,email,password)  VALUES (?, ?, ?, ?, ?, ?, ?)");
+            $stmt_insert->bind_param("ssissss",$nom,$prenom,$telephone,$sexe,$dateN,$email,$password);
+if ($stmt_insert->execute()) {
+    header('Location: signup_success.php');
+    exit();
+} else {
+    header('Location: signup_failure.php?error=Data not inserted');
+    exit();
+}
+}
 
-}
-else echo"<script>alert('data not inserted ')</script>";
-}
+// Fermeture des statements
+$stmt->close();
+$stmt_insert->close();
+} catch (EmailAlreadyUsedException $e) {
+header('Location: signup_failure.php?error=' . urlencode($e->getMessage()));
+exit();
+} catch (Exception $e) {
+// Gestion des autres exceptions
+header('Location: signup_failure.php?error=' . urlencode($e->getMessage()));
+exit();
+}}
 
-else{
-    echo"<script>alert('cette email est deja utilisé')</script>";
-}
-}
+
 
 
 ?>

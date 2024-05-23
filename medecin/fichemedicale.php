@@ -9,11 +9,20 @@ $doctor_data=$_SESSION["medecin_data"];
    $docspecialite=$doctor_data["specialite"];
    $docemail=$doctor_data["email"];
    $image =$doctor_data["image"];
+   if (isset($_GET["id"]) && isset($_GET["nom"]) && isset($_GET["prenom"])){
+    $rdvtid=$_GET["id"];
+    $patientnom=$_GET["nom"];
+    $patientprenom=$_GET["prenom"]; 
+    
+    $rapportMedicale = "";
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $rapportMedicale = $_POST['rapport'];}
+}
    $exemple="Rapport Médical
 
-   Patient : [Nom du patient]
+   Patient : ".$patientnom." ".$patientprenom."
    Date de Naissance : [Date de naissance du patient]
-   Sexe : [Sexe du patient]
+   Sexe :[patient sex]
    Adresse : [Adresse du patient]
    Numéro de téléphone : [Numéro de téléphone du patient]
    
@@ -45,14 +54,7 @@ $doctor_data=$_SESSION["medecin_data"];
    Remarques : [Remarques supplémentaires du médecin, le cas échéant]
    
   ";
-   if (isset($_GET["id"]) && isset($_GET["nom"]) && isset($_GET["prenom"])){
-    $rdvtid=$_GET["id"];
-    $patientnom=$_GET["nom"];
-    $patientprenom=$_GET["prenom"]; 
-    $rapportMedicale = "";
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $rapportMedicale = $_POST['rapport'];}
-}
+   
 
 ?>
 <!DOCTYPE html>
@@ -202,7 +204,7 @@ $doctor_data=$_SESSION["medecin_data"];
                             $medicament = ''; 
                         }
                     ?>
-                    <p placeholder="mama"> <?php
+                    <p placeholder="mama"><?php
                     if($rapport!='') echo  $rapport;
                     else echo"  aucun rapport n'est ajouter " ?></p>
                    
@@ -272,7 +274,7 @@ $doctor_data=$_SESSION["medecin_data"];
                 $('#medicament_list_input').val(medicamentHTML);
             }
         $('#submit').click(function(){
-            updateMedicamentList();
+           
             $('#rapport_existant').show();
             $('#ajouter_rapport').hide();
             $('#ajouter_medicament').hide();
@@ -289,10 +291,11 @@ $doctor_data=$_SESSION["medecin_data"];
           $sqlmain = "SELECT id,rapport, medicament FROM ficheconsultation  WHERE id_rdv =  $rdvtid";
           $result = mysqli_query($conn, $sqlmain);
           if($result->num_rows>0) {
-          mysqli_query($conn,"UPDATE ficheconsultation
-                SET rapport = '$rapo',medicament='$medi'
-                WHERE id_rdv =  $rdvtid;");$soumissionReussie = true; 
-                                   }
+            if($rapo!="")
+            mysqli_query($conn,"UPDATE ficheconsultation set rapport = '$rapo' WHERE id_rdv =  $rdvtid;");
+               if($medi!="")   
+               mysqli_query($conn,"UPDATE ficheconsultation  set medicament='$medi'WHERE id_rdv =  $rdvtid;");
+                }  
            else{
             mysqli_query($conn,"INSERT INTO ficheconsultation (id_rdv,rapport,medicament) VALUES ('$rdvtid','$rapo', '$medi')");
             $soumissionReussie = true;
